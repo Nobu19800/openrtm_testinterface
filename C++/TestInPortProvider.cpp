@@ -3,6 +3,7 @@
 
 TestInPortProvider::TestInPortProvider() : m_running(false), m_connector(nullptr)
 {
+  setInterfaceType("testif");
 }
 
 TestInPortProvider::~TestInPortProvider()
@@ -14,7 +15,7 @@ TestInPortProvider::~TestInPortProvider()
   }
 }
 
-void TestInPortProvider::init(coil::Properties& prop)
+void TestInPortProvider::init(coil::Properties &prop)
 {
   if (prop.propertyNames().size() == 0)
   {
@@ -25,7 +26,8 @@ void TestInPortProvider::init(coil::Properties& prop)
 
   if (!m_running)
   {
-    m_thread = std::thread([this, filename] {
+    m_thread = std::thread([this, filename]
+                           {
       this->m_running = true;
       unsigned long lastid = 0;
       while (this->m_running)
@@ -53,21 +55,20 @@ void TestInPortProvider::init(coil::Properties& prop)
             }
           }
         }
-      }
-      });
+      } });
   }
 }
 
-void TestInPortProvider::setBuffer(RTC::BufferBase<RTC::ByteData>* buffer)
+void TestInPortProvider::setBuffer(RTC::BufferBase<RTC::ByteData> *buffer)
 {
 }
 
-void TestInPortProvider::setListener(RTC::ConnectorInfo& info,
-  RTC::ConnectorListenersBase* listeners)
+void TestInPortProvider::setListener(RTC::ConnectorInfo &info,
+                                     RTC::ConnectorListenersBase *listeners)
 {
 }
 
-void TestInPortProvider::setConnector(RTC::InPortConnector* connector)
+void TestInPortProvider::setConnector(RTC::InPortConnector *connector)
 {
   m_connector = connector;
 }

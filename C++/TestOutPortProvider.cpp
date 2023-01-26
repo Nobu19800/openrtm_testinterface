@@ -1,9 +1,9 @@
 #include "TestOutPortProvider.h"
 #include <fstream>
 
-
 TestOutPortProvider::TestOutPortProvider() : m_running(false), m_connector(nullptr)
 {
+  setInterfaceType("testif");
 }
 
 TestOutPortProvider::~TestOutPortProvider()
@@ -15,7 +15,7 @@ TestOutPortProvider::~TestOutPortProvider()
   }
 }
 
-void TestOutPortProvider::init(coil::Properties& prop)
+void TestOutPortProvider::init(coil::Properties &prop)
 {
   if (prop.propertyNames().size() == 0)
   {
@@ -27,7 +27,8 @@ void TestOutPortProvider::init(coil::Properties& prop)
 
   if (!m_running)
   {
-    m_thread = std::thread([this, filename_in, filename_out] {
+    m_thread = std::thread([this, filename_in, filename_out]
+                           {
       this->m_running = true;
       unsigned long lastid = 0;
       while (this->m_running)
@@ -66,22 +67,20 @@ void TestOutPortProvider::init(coil::Properties& prop)
             }
           }
         }
-      }
-    });
+      } });
   }
 }
 
-void TestOutPortProvider::setBuffer(RTC::CdrBufferBase* buffer)
+void TestOutPortProvider::setBuffer(RTC::CdrBufferBase *buffer)
 {
 }
 
-void TestOutPortProvider::setListener(RTC::ConnectorInfo& info,
-  RTC::ConnectorListenersBase* listeners)
+void TestOutPortProvider::setListener(RTC::ConnectorInfo &info,
+                                      RTC::ConnectorListenersBase *listeners)
 {
 }
 
-
-void TestOutPortProvider::setConnector(RTC::OutPortConnector* connector)
+void TestOutPortProvider::setConnector(RTC::OutPortConnector *connector)
 {
   m_connector = connector;
 }
