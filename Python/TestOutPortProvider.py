@@ -41,7 +41,8 @@ class TestOutPortProvider(OpenRTM_aist.OutPortProvider):
                     if os.path.exists(filename_in):
                         with open(filename_in, 'rb') as fin:
                             try:
-                                id = struct.unpack("L", fin.read(4))[0]
+                                id = struct.unpack(
+                                    "L", fin.read(struct.calcsize("L")))[0]
                                 if id == lastid:
                                     continue
                             except BaseException:
