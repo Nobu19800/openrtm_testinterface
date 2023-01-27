@@ -45,10 +45,12 @@ class TestOutPortConsumer(
             if os.path.exists(self._filename_out):
                 with open(self._filename_out, 'rb') as fin:
                     try:
-                        id = struct.unpack("L", fin.read(4))[0]
+                        id = struct.unpack(
+                            "L", fin.read(struct.calcsize("L")))[0]
                         if id == self._dataid:
                             self._dataid = id
-                            size = struct.unpack("L", fin.read(4))[0]
+                            size = struct.unpack(
+                                "L", fin.read(struct.calcsize("L")))[0]
                             if size > 0:
                                 data = fin.read(size)
                                 return self.PORT_OK, data

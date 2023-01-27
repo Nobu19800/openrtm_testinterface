@@ -40,10 +40,12 @@ class TestInPortProvider(OpenRTM_aist.InPortProvider):
                     if os.path.exists(filename):
                         with open(filename, 'rb') as fin:
                             try:
-                                id = struct.unpack("L", fin.read(4))[0]
+                                id = struct.unpack(
+                                    "L", fin.read(struct.calcsize("L")))[0]
                                 if id != lastid:
                                     lastid = id
-                                    size = struct.unpack("L", fin.read(4))[0]
+                                    size = struct.unpack(
+                                        "L", fin.read(struct.calcsize("L")))[0]
                                     if size > 0:
                                         data = fin.read(size)
                                         self._connector.write(data)

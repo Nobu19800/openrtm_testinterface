@@ -1,6 +1,7 @@
 #ifndef TESTOUTPORTCONSUMER_H
 #define TESTOUTPORTCONSUMER_H
 
+#include <rtm/SystemLogger.h>
 #include <rtm/OutPortConsumer.h>
 
 class TestOutPortConsumer
